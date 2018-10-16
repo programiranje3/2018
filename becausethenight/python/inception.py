@@ -1,3 +1,6 @@
+"""Module inception
+"""
+
 # print("Because the Night")
 # print('Because the Night')
 # print()
@@ -26,6 +29,10 @@
 
 
 def print_b():
+    """
+    Function print_b
+    """
+
     print('Because the Night' + '\n' +
           'is a legendary song :)')
     print(__name__)
@@ -40,5 +47,25 @@ if __name__ == '__main__':
     print(__name__)
 
     print_b()
+
+    print(__doc__)
+    print(print_b.__doc__)
+    print()
+
+    songs = [
+        "Because the Night",
+        "Till Victory",
+        "Rock 'n' Roll Nigger",
+    ]
+    print(songs)
+    print(enumerate(songs))
+    l = list(enumerate(songs))
+    print(l)
+    # for i in l:
+    #     print(l[i])
+    for i, j in l:
+        print(i, j)
+        # print(i, j)
+        # print(i)
 
 

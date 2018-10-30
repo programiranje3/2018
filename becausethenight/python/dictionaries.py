@@ -45,22 +45,30 @@ def sort_dictionary(d, by):
     - using lambda
     """
 
+    if by == 'k':
+        l = sorted(zip(d.keys(), d.values()))
+    elif by == 'v':
+        l = sorted(zip(d.values(), d.keys()))
+    else:
+        return(None)
+    return dict(l)
+
+    # from operator import itemgetter
     # if by == 'k':
-    #     l = sorted(zip(d.keys(), d.values()))
+    #     l = sorted(d.items(), key=itemgetter(0))
     # elif by == 'v':
-    #     l = sorted(zip(d.values(), d.keys()))
+    #     l = sorted(d.items(), key=itemgetter(1))
     # else:
     #     return(None)
     # return dict(l)
 
-    from operator import itemgetter
-    if by == 'k':
-        l = sorted(d.items(), key=itemgetter(0))
-    elif by == 'v':
-        l = sorted(d.items(), key=itemgetter(1))
-    else:
-        return(None)
-    return dict(l)
+    # if by == 'k':
+    #     l = sorted(d.items(), key=lambda i: i[0])
+    # elif by == 'v':
+    #     l = sorted(d.items(), key=lambda i: i[1])
+    # else:
+    #     return(None)
+    # return dict(l)
 
 
 def demonstrate_dict_sorting():

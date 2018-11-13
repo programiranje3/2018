@@ -18,8 +18,10 @@ def format_songs(songs):
     """
 
 
-def generate_songs(songs):
-    """A generator of Song objects, given the input list of songs.
+def shuffle(album, seed, play_time):
+    """A generator of song titles from a given album in random order.
+    Simulates shuffle-playing of songs from the album
+    for play_time time (a float number expected by time.perf_counter()).
     """
 
 

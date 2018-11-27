@@ -3,6 +3,9 @@
 import datetime
 import time
 from enum import Enum
+from pathlib import Path
+
+from becausethenight import settings
 
 
 def format_duration(seconds):
@@ -39,14 +42,21 @@ def get_project_dir():
     """Returns the Path object corresponding to the project root directory.
     """
 
+    return Path(settings.PROJECT_DIR)
+
 
 def get_data_dir():
     """Returns the Path object corresponding to the data directory
     (by convention located right under the project root directory).
     """
 
+    data_dir = Path(get_project_dir()) / 'data_dir'
+    data_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir
+
 
 if __name__ == '__main__':
 
-    pass
+    get_data_dir()
+
 

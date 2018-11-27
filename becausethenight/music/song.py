@@ -59,3 +59,33 @@ if __name__ == "__main__":
     because_the_night.performer = patti
     because_the_night.play()
 
+
+    # with open('because_the_night.txt', 'w') as f:
+    #     f.write(str(because_the_night))
+    # with open('because_the_night.txt', 'r') as f:
+    #     btn = f.read()
+    # print(str(because_the_night) == btn)
+    # print()
+
+    # with open('because_the_night', 'wb') as f:
+    #     f.write(str.encode(str(because_the_night)))
+    # with open('because_the_night', 'rb') as f:
+    #     btn = f.read()
+    # print(btn)
+    # print(str(because_the_night) == btn.decode())
+    # print()
+
+    data_dir = utility.get_data_dir()
+    print(data_dir)
+    print()
+
+    f = data_dir / 'because_the_night'
+    f.write_text(str(because_the_night))
+    
+    btn = f.read_text()
+    print(str(because_the_night) == btn)
+
+
+
+
+

@@ -5,6 +5,7 @@ from becausethenight.util import utility
 from becausethenight.music.author import Author
 
 from datetime import date
+import pickle
 
 
 class Song:
@@ -43,22 +44,21 @@ if __name__ == "__main__":
                              "Bruce and Patti",
                              200,
                              date(1978, 3, 2))
-    b = Song("Because the Night",
-             "Patti",
-             "Bruce Springsteen and Patti Smith",
-             200,
-             date(1978, 3, 2))
-    print(because_the_night)
-    print(because_the_night == b)
-    print()
-
-    patti = Performer("Patti Smith")
-    because_the_night.play()
-    print()
-
-    because_the_night.performer = patti
-    because_the_night.play()
-
+    # b = Song("Because the Night",
+    #          "Patti",
+    #          "Bruce Springsteen and Patti Smith",
+    #          200,
+    #          date(1978, 3, 2))
+    # print(because_the_night)
+    # print(because_the_night == b)
+    # print()
+    #
+    # patti = Performer("Patti Smith")
+    # because_the_night.play()
+    # print()
+    #
+    # because_the_night.performer = patti
+    # because_the_night.play()
 
     # with open('because_the_night.txt', 'w') as f:
     #     f.write(str(because_the_night))
@@ -75,17 +75,32 @@ if __name__ == "__main__":
     # print(str(because_the_night) == btn.decode())
     # print()
 
+    # data_dir = utility.get_data_dir()
+    # print(data_dir)
+    # print()
+    #
+    # f = data_dir / 'because_the_night'
+    # f.write_text(str(because_the_night))
+    #
+    # btn = f.read_text()
+    # print(str(because_the_night) == btn)
     data_dir = utility.get_data_dir()
-    print(data_dir)
-    print()
-
     f = data_dir / 'because_the_night'
-    f.write_text(str(because_the_night))
-    
-    btn = f.read_text()
-    print(str(because_the_night) == btn)
 
 
+    # with open(f, 'wb') as jf:
+    #     pickle.dump(because_the_night, jf, protocol=pickle.HIGHEST_PROTOCOL)
+    # print('Pickled.')
+    # print()
+    #
+    # with open(f, 'rb') as jf:
+    #     b = pickle.load(jf)
+    # print(b == because_the_night)
+
+    because_the_night_pickled_s = \
+        pickle.dumps(because_the_night, protocol=pickle.HIGHEST_PROTOCOL)
+    b = pickle.loads(because_the_night_pickled_s)
+    print(b == because_the_night)
 
 
 

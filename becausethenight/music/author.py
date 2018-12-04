@@ -123,10 +123,30 @@ class AuthorEncoder(json.JSONEncoder):
     Redefines the default(self, o) method of json.JSONEncoder.
     """
 
+    def default(self, o):
+        if isinstance(o, Author):
+            d = o.__dict__.copy()
+            d['birth_date'] = utility.date_py_to_json(o.birth_date)
+            d['alive'] = 'true' if o.alive == Lives.ALIVE \
+                else 'false' if o.alive == Lives.DECEASED \
+                else 'unknown'
+            return {'__Author__': d}
+        return {'__{}__'.format(o.__class__.__name__): o.__dict__}
+
 
 def json_to_py(author_json):
     """JSON decoder for Author objects (object_hook parameter in json.loads()).
     """
+
+    if '__Author__' in author_json:
+        a = Author('unknown')
+        a.__dict__.update(author_json['__Author__'])
+        a.birth_date = utility.date_json_to_py(a.__dict__['birth_date'])
+        a.alive = Lives.ALIVE if a.__dict__['alive'] == 'true' \
+            else Lives.DECEASED if a.__dict__['alive'] == 'false' \
+            else 'unknown if alive or deceased'
+        return a
+    return author_json
 
 
 class Musician(Author):
@@ -213,39 +233,48 @@ if __name__ == "__main__":
                    date(1946, 12, 30),
                    "Chicago",
                    "US")
-    print(patti)
-    print()
+    # print(patti)
+    # print()
+    #
+    # Author.show_definition()
+    # patti.show_definition()
+    # print()
+    #
+    # bruce = Author.get_instance("Bruce Springsteen")
+    # print(bruce)
+    #
+    # print(Author.alive_or_deceased(bruce))
+    # print()
+    #
+    # bruce = Musician("Bruce Springsteen", date(1949, 9, 23), "Freehold", "US")
+    # print(bruce)
+    # print()
+    #
+    # patti = Poet('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
+    # print(patti)
+    # print()
+    #
+    # pattiSmith = SingerSongwriter('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
+    # print(pattiSmith)
+    # print()
+    # print(SingerSongwriter.__mro__)
+    # print()
+    #
+    #
+    # patti.show_definition()
+    # bruce.show_definition()
+    # pattiSmith.show_definition()
+    #
+    # print()
 
-    Author.show_definition()
-    patti.show_definition()
-    print()
+    # patti_json = json.dumps(patti, indent=4, cls=AuthorEncoder)
+    # print(patti_json)
+    # print()
+    #
+    # pattiSmith = json.loads(patti_json, object_hook=json_to_py)
+    # print(patti == pattiSmith)
 
-    bruce = Author.get_instance("Bruce Springsteen")
-    print(bruce)
-
-    print(Author.alive_or_deceased(bruce))
-    print()
-
-    bruce = Musician("Bruce Springsteen", date(1949, 9, 23), "Freehold", "US")
-    print(bruce)
-    print()
-
-    patti = Poet('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
-    print(patti)
-    print()
-
-    pattiSmith = SingerSongwriter('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
-    print(pattiSmith)
-    print()
-    print(SingerSongwriter.__mro__)
-    print()
-
-
-    patti.show_definition()
-    bruce.show_definition()
-    pattiSmith.show_definition()
-
-    print()
-
+    # patti_json = jsonpickle.encode(patti)
+    # pattiSmith = jsonpickle.decode(patti_json)
 
 

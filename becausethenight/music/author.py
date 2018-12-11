@@ -6,6 +6,8 @@ from datetime import date
 from enum import Enum
 import json
 
+import jsonpickle
+
 from becausethenight.util import utility
 
 
@@ -274,7 +276,8 @@ if __name__ == "__main__":
     # pattiSmith = json.loads(patti_json, object_hook=json_to_py)
     # print(patti == pattiSmith)
 
-    # patti_json = jsonpickle.encode(patti)
-    # pattiSmith = jsonpickle.decode(patti_json)
+    patti_json = jsonpickle.encode(patti)
+    pattiSmith = jsonpickle.decode(patti_json)
+    print(patti == pattiSmith)
 
 

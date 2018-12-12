@@ -137,14 +137,16 @@ def crawl_patti_smith_home_page(base_url, max_pages=1):
     for soup in soups:
         links = soup.find('nav').find_all('a')
         for l in links:
-            title = l.attrs['title'].capitalize()
+            # title = l.attrs['title'].capitalize()
+            title = l.text.capitalize()
             link = urljoin(BASE_URL_PATTI_SMITH, l.get('href'))
             print('{}\n{}\n'.format(title, link))
 
             soup2 = get_soup(link)
             links2 = soup2.find_all('a')
             for lnk in links2:
-                print('\t{}'.format(lnk.get('href')))
+                # print('\t{}'.format(lnk.get('href')))
+                print('\t{}'.format(urljoin(BASE_URL_PATTI_SMITH, lnk.get('href'))))
 
 
 if __name__ == "__main__":
